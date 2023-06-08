@@ -4,7 +4,12 @@
 extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
-#include <libswscale/swscale.h>
+#include <libavfilter/avfilter.h>
+#include <libavfilter/buffersrc.h>
+#include <libavfilter/buffersink.h>
+#include <libavutil/opt.h>
+#include <libavutil/imgutils.h>
+// #include <libswscale/swscale.h>
 #include <inttypes.h>
 }
 
@@ -19,7 +24,8 @@ struct VideoReaderState {
     int video_stream_index;
     AVFrame* av_frame;
     AVPacket* av_packet;
-    SwsContext* sws_scaler_ctx;
+    // SwsContext* sws_scaler_ctx;
+    AVFilterGraph* av_filter_graph;
 };
 
 bool video_reader_open(VideoReaderState* state, const char* filename);
